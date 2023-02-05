@@ -38,7 +38,7 @@ services:
       - "4200:80"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.angular.rule=Host(`localhost`)"
+      - "traefik.http.routers.angular.rule=Host(`phonebook.bouzinab.com`)"
       - "traefik.http.routers.angular.entrypoints=web"
     environment:
       - BACKEND=nodejs:1337
