@@ -1,0 +1,34 @@
+table {
+    width: 100%;
+}
+
+.borderless {
+    border: none;
+    outline: none;
+}
+
+.borderless:active {
+    border: none;
+    outline: none;
+}
+
+.borderless:focus {
+    border: none;
+    outline: none;
+}
+
+.borderless:hover {
+    border: none;
+    outline: none;
+}
+
+.borderless:visited {
+    border: none;
+    outline: none;
+}
+
+.borderless:link {
+    border: none;
+    outline: none;
+}
+

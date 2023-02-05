@@ -1,0 +1,62 @@
+
+    <div *ngIf="!form_on" id="profilediv" style="margin-top: 7%;">
+        <ul id="profileList">
+            <li> Email : {{ user.email }} </li>
+            <li> First Name : {{ user.prenom}} </li>
+            <li> Last Name : {{ user.nom}} </li>
+            <li> password : ******** </li>
+            <li> Phone Number : {{ user.tel }} </li>
+            <li> Adress : {{ user.adresse }} </li>
+            <li> Birthday : {{ user.dateDeNaissance | date }} </li>
+        </ul>
+        <button (click)="toggleForm()" class="btn btn-primary form-control"
+            style="display: block; margin-left:auto;margin-right:auto"> Mofifier </button>
+    </div>
+    <div *ngIf="form_on" style="text-align: center;">
+        <h1 style="margin-top: 5%;"> Update your information </h1>
+        <form id="profileForm" id="profilediv">
+            <form [formGroup]="updateUserForm" (submit)="updateUser()" class="formdiv">
+
+                <div class="form-group">
+                    <label class="labels-position" for="firstname">First name:</label>
+                    <input name="firstname" formControlName="firstname" class="fields-position form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label class="labels-position" for="lastname">Last name:</label>
+                    <input name="lastname" formControlName="lastname" class="fields-position form-control" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="labels-position" for="Email" >Email:</label>
+                    <input name="email" formControlName="email" class="fields-position form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label class="labels-position" for="password">Password:</label>
+                    <input name="password" formControlName="password" type="password"
+                        class="fields-position form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label class="labels-position" for="tel" >Phone Number:</label>
+                    <input name="tel" formControlName="tel" class="fields-position form-control" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="labels-position" for="adress" >Adress:</label>
+                    <input name="adress" formControlName="adress" class="fields-position form-control" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="labels-position" for="birthDate">Birth Date:</label>
+                    <input name="birthDate" formControlName="birthDate" type="date"
+                        class="fields-position form-control" />
+                </div>
+
+                <div style="margin-top: 3%;" class="form-group">
+                    <button class="btn btn-primary form-control" type="submit"> Submit </button>
+                </div>
+            </form>
+        </form>
+    </div>

@@ -1,0 +1,82 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo
+    container_name: phonebook-mongodb
+    
+    volumes:
+      - mongodb-data:/data/db
+    ports:
+      - "27017:27017"
+
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - internal
+  nodejs:
+    build: 
+      context: ./donkeyUR-api
+      dockerfile: nodejs.Dockerfile
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/phonebook
+      - PORT=1337
+
+    ports:
+      - "1337:1337"
+    depends_on:
+      - mongodb
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - internal
+  angular:
+    container_name: angular
+    build: 
+      context: ./donkeyUR-front
+      dockerfile: angular.Dockerfile
+    ports:
+      - "4200:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.angular.rule=Host(`localhost`)"
+      - "traefik.http.routers.angular.entrypoints=web"
+    depends_on:
+      - nodejs
+      - mongodb
+    expose: 
+      - "4200"
+    networks:
+      - proxy
+      - internal
+  
+  traefik:
+    image: traefik
+    container_name: phonebook-traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=phonebook-network"
+      - "--entrypoints.web.address=:80"
+      
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy
+      - internal
+    depends_on:
+      - nodejs
+      - mongodb
+      - angular
+
+networks:
+  proxy:
+    external:
+      name: proxy
+  internal:
+volumes:
+  mongodb-data:
+

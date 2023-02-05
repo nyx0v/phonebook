@@ -1,0 +1,22 @@
+<h1 style="text-align:center;display:block; margin-left:auto; margin-right: auto; margin-top:5%;">Welcome to PhoneBook</h1>
+<div style="width: 40%; display:block; margin-left:auto; margin-right: auto; margin-top:10%;">
+    <form [formGroup]="form">
+        <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control loginform" id="inputEmail" formControlName="email" placeholder="Email" />
+        </div>
+        <div class="form-group">
+            <label for="inputPassword">Password</label>
+            <input type="password" class="form-control loginform" id="inputPassword" formControlName="password"
+                placeholder="Password" />
+        </div>
+        <div class="form-group" style="display: block;text-align:center">
+        <button type="submit" class="btn btn-primary loginform" (click)="login()">
+            Sign in
+        </button>
+        </div>
+    </form>
+    <div id="registertextdiv" style="display: block;text-align:center;margin-top:30px">
+        Or <a [routerLink]="['/register']"><b>register!</b></a>
+    </div>
+</div>
