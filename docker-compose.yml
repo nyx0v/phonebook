@@ -40,6 +40,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.angular.rule=Host(`localhost`)"
       - "traefik.http.routers.angular.entrypoints=web"
+    environment:
+      - BACKEND=nodejs:1337
     depends_on:
       - nodejs
       - mongodb

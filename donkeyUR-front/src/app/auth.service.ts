@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './User';
 import * as moment from "moment";
 import { DataService } from './data.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthService {
-
+    url = environment.apiUrl;
     loggedIn: boolean = false;
     public isAdmin: boolean = false;
 
@@ -16,7 +17,7 @@ export class AuthService {
 
   login(email:string, password:string ) {
 
-      return this.http.post<any>('http://localhost:1337/login', {email, password})
+      return this.http.post<any>(this.url + '/login', {email, password})
   }
         
   public setSession(authResult: any) {
